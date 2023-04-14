@@ -55,35 +55,22 @@ public class Warrior {
 	}
 
 	public void attackMonster(Monster monster) {
-		if(monster.checkStatus()) {
-			System.out.println(monster.getName() + "이(가) 죽어서 공격할수 없습니다.");
-			System.out.println("-------------------------------");
+		if(monster.monsterDie()) {
+			monster.monsterDieMessage();
 			return;
 		}
 		if(userDeadChack()){
-			System.out.println("플레이어가 사망하였습니다.");
+			youDie();
 			return;// 몬스터가 반격하는 코드
 		}
-		monster.attackMonster(getAkt());
-		System.out.println(monster.getName() + "을(를) 공격하였습니다.");
-		System.out.println("-------------------------------");
-		if(monster.getHp() <= 0) { // 공격후 몬스터의 상태 체크 
-			System.out.println(monster.getName() + "이(가) 죽었습니다.");
-			System.out.println("경험치" + monster.getExp() + "을 획득했습니다.");
-			System.out.println("-------------------------------");
-			this.exp += monster.getExp();
-		}else if(monster.getHp() > 0) {
-			System.out.println(monster.getName() + "에게 피해 " + this.akt + "만큼을 줬습니다.");
-			System.out.println(monster.getName() + "이(가) 반격합니다.");
-			System.out.println("피해 " + (monster.getAtk() - this.def) + "만큼을 받았습니다.");
-			System.out.println("-------------------------------");
-			if((monster.getAtk() - this.def) >= 0) {
-				this.hp -= (monster.getAtk() - this.def);
-			}else if((monster.getAtk() - this.def) < 0) {
-				this.hp -= 1;
-			}else if((monster.getAtk() - this.def) == 0) {
-				return;
-			}
+		monster.monsterAttacks(getAkt());
+		monster.monsterAttacksMessage();
+		if(monster.attackNextMonsterCheck()) { // 공격후 몬스터의 상태 체크 
+			gainExpMessage(monster.getName(), monster.getExp());
+			gainExp(monster.getExp());
+		}else {
+			beHitMessage(monster.getName(), monster.getAtk());
+			beHit(monster.getAtk());
 		}
 	}
 	
@@ -91,5 +78,36 @@ public class Warrior {
 		return this.hp <= 0 ? true : false;
 	}
 	
+	public void gainExp(int monExp) {
+		this.exp += monExp;
+	}
 	
+	public void gainExpMessage(String monsterName, int monsterExp) {
+		System.out.println(monsterName + "이(가) 죽었습니다.");
+		System.out.println("경험치" + monsterExp + "을 획득했습니다.");
+		System.out.println("-------------------------------");
+	}
+	
+	public void beHit(int monsterAtk) {
+		if((monsterAtk - this.def) >= 0) {
+			this.hp -= (monsterAtk - this.def);
+		}else if((monsterAtk - this.def) < 0) {
+			this.hp -= 1;
+		}else if((monsterAtk - this.def) == 0) {
+			return;
+		}
+	}
+	
+	public void beHitMessage(String monsterName, int monsterAtk) {
+		System.out.println(monsterName + "에게 피해 " + this.akt + "만큼을 줬습니다.");
+		System.out.println(monsterName + "이(가) 반격합니다.");
+		System.out.println("피해 " + (monsterAtk - this.def) + "만큼을 받았습니다.");
+		System.out.println("-------------------------------");
+	}
+
+	public void youDie() {
+		System.out.println("플레이어가 사망하였습니다.");
+	}
+
+
 }

@@ -44,16 +44,36 @@ public class Monster {
 		this.exp = exp;
 	}
 
-	public boolean checkStatus() {
+	public boolean monsterDie() {
 		return this.hp < 0 ? true : false;
 	}//몬스터가 생존여부 체크
 	
-	public void attackMonster(int userAkt) {
+	public void monsterDieMessage() {
+		System.out.println(this.name + "이(가) 죽어서 공격할수 없습니다.");
+		System.out.println("-------------------------------");
+	}
+	
+	public void monsterAttacks(int userAkt) {
 		this.hp -= userAkt - this.def;
 	}//몬스터 공격
+	
+	public void monsterAttacksMessage() {
+		System.out.println(this.name + "을(를) 공격하였습니다.");
+		System.out.println("-------------------------------");
+	}
 	
 	public boolean userAttackNextStatus() {
 		return this.hp <= 0 ? true : false;
 	}
+	
+	public boolean attackNextMonsterCheck() {
+		if(this.hp <= 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	
 	
 }
