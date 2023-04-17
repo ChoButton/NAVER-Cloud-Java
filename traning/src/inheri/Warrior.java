@@ -54,7 +54,7 @@ public class Warrior {
 		System.out.println("-------------------------------");
 	}
 
-	public void attackMonster(Monster monster) {
+	public void monsterHunt(Monster monster) {
 		if(monster.monsterDie()) {
 			monster.monsterDieMessage();
 			return;
