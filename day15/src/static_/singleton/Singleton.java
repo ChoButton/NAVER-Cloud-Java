@@ -10,7 +10,7 @@ public class Singleton {
 	private Singleton() {};
 	
 	/*
-	 * 2. 자신의 클래스 내부에서 스스로의 객체를 1개 생성합니다.
+	 * 2. 자신의 클래스 내부에서 스스로의 인스턴스를 1개 생성합니다.
 	 */
 	private static Singleton instance;
 	
