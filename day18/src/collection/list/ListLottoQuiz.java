@@ -38,20 +38,20 @@ public class ListLottoQuiz {
 		
 		
 		Random r1 = new Random();
-		while(Lotto != Lotto1) {
+		while(!Lotto.equals(Lotto1)) {
 			Lotto1.clear();
-		while(Lotto1.size() < 6) {
-		    int L1 = r1.nextInt(45) + 1;
-		    if (!Lotto1.contains(L1)) {
-		        Lotto1.add(L1);
-		    }
+			while(Lotto1.size() < 6) {
+				int L1 = r1.nextInt(45) + 1;
+				if (!Lotto1.contains(L1)) {
+					Lotto1.add(L1);
+				}
 		}
 		Lotto1.sort(Comparator.naturalOrder());
 		i++;
 		}
 		System.out.println(Lotto1);
 		System.out.println("당첨입니다.");
-		System.out.println(i + " 번 만에 당첨되셨습니다.");
+		System.out.println(i + "번 만에 당첨되셨습니다.");
 	}
 
 }

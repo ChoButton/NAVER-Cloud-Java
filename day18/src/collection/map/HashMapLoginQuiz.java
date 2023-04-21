@@ -39,7 +39,7 @@ public class HashMapLoginQuiz {
 		if(IdPw.containsKey(IdCh)) {
 			System.out.print("PW : ");
 			String PwCh = scan.next();
-			if(IdPw.get(ID) == PwCh) {
+			if(IdPw.get(ID).equals(PwCh)) {
 				System.out.println("로그인 성공");
 			}else {
 				System.out.println("비밀번호가 틀렸습니다.");
